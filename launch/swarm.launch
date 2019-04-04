@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<launch>
+	
+	<include file="$(find ardrone_autonomy)/launch/ardrone.launch">
+		  <arg name="drone-ip" 			default="10.0.0.10" />
+		  <arg name="nspace" 			default="quadrotor1" />	
+	</include>
+
+	<include file="$(find ardrone_autonomy)/launch/ardrone.launch">
+		  <arg name="drone-ip" 			default="10.0.0.20" />
+		  <arg name="nspace" 			default="quadrotor2" />	
+	</include>
+
+</launch>

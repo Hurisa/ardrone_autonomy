@@ -1,12 +1,19 @@
 <?xml version="1.0"?>
 <!-- This is a sample lanuch file, please change it based on your needs -->
+
 <launch>
-    <!-- IPv4 address of your drone -->
-    <arg name="ip" default="192.168.1.1" />
-  <!-- Ultrasound frequency (7 or 8). -->
-  <arg name="freq" default="8" />
+  <arg name="drone-ip" 			default="10.0.0.20" />
+  <arg name="nspace" 			default="quadrotor1" />
+  <arg name="bottom_cam_yaml"  default="file:$(find ardrone_autonomy)/data/$(arg nspace).yaml"/>
+  
+  <group ns="$(arg nspace)">
+	<!-- IPv4 address of your drone -->
+	<arg name="ip" value="$(arg drone-ip)" />
+	<!-- Ultrasound frequency (7 or 8). -->
+	<arg name="freq" default="8" />
     <node name="ardrone_driver" pkg="ardrone_autonomy" type="ardrone_driver"
-          output="screen" clear_params="true" args="-ip $(arg ip)">
+        output="screen" clear_params="true" args="-ip $(arg ip)">
+		<param name="bottom_calib_url" value="$(arg bottom_cam_yaml)" /> 
         <param name="outdoor" value="0" />
         <param name="max_bitrate" value="4000" />
         <param name="bitrate" value="4000" />
@@ -25,10 +32,26 @@
         <param name="ultrasound_freq" value="$(arg freq)" />
         <param name="realtime_navdata" value="true" />
         <param name="realtime_video" value="true" />
+        
+      
+        
         <!-- Covariance Values (3x3 matrices reshaped to 1x9)-->
         <rosparam param="cov/imu_la">[0.1, 0.0, 0.0, 0.0, 0.1, 0.0, 0.0, 0.0, 0.1]</rosparam>
         <rosparam param="cov/imu_av">[1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]</rosparam>
         <rosparam param="cov/imu_or">[1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 100000.0]</rosparam>
     </node>
+    
+
+		
+	<param name="filename" value="$(find ardrone_autonomy)/data/$(arg nspace).yaml" />
+	<node pkg="ardrone_autonomy" name="cam_info" type="yaml_to_camera_info_publisher.py" output="screen"> 
+			<remap from="camera_info" to="bottom/camera_info"/>
+	</node> 
+	
+	<include file="$(find aruco_ros)/launch/marker_publisher.launch" >
+		<arg name="camera_info_topic"		value="bottom/camera_info" />
+		<arg name="image_topic"				value="ardrone/bottom/image_raw" />
+	</include>
+  </group>  
 </launch>
 

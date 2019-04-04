@@ -94,8 +94,21 @@ ARDroneDriver::ARDroneDriver()
   }
 
   // Camera Info Manager
-  cinfo_hori = new camera_info_manager::CameraInfoManager(ros::NodeHandle("ardrone/front"), "ardrone_front");
-  cinfo_vert = new camera_info_manager::CameraInfoManager(ros::NodeHandle("ardrone/bottom"), "ardrone_bottom");
+  //cinfo_hori = new camera_info_manager::CameraInfoManager(ros::NodeHandle("ardrone/front"), "ardrone_front");
+  //cinfo_vert = new camera_info_manager::CameraInfoManager(ros::NodeHandle("ardrone/bottom"), "ardrone_bottom");
+
+
+
+  std::string front_calib_url("");
+  private_nh.getParam("front_camera_info_url",front_calib_url);
+  cinfo_hori=new camera_info_manager::CameraInfoManager(ros::NodeHandle("ardrone/front"), "ardrone_front", front_calib_url);
+  
+  std::string bottom_calib_url("");
+  private_nh.getParam("bottom_camera_info_url",bottom_calib_url);
+  cinfo_vert=new camera_info_manager::CameraInfoManager(ros::NodeHandle("ardrone/bottom/camera_info"), "ardrone_bottom", bottom_calib_url);
+
+
+
 
   // TF Stuff
 

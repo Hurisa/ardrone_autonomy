@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<!-- This is a sample lanuch file, please change it based on your needs -->
+<launch>
+
+     <node pkg="ardrone_autonomy" name="cam_info" type="yaml_to_camera_info_publisher.py" output="screen"> 
+		
+	</node> 
+</launch>

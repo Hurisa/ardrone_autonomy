@@ -77,7 +77,7 @@ catkin_package(
 # Build [pathced] ardronelib from an external project
 include(ExternalProject)
 ExternalProject_Add(ardronelib
-    GIT_REPOSITORY git://github.com/AutonomyLab/ardronelib.git
+    GIT_REPOSITORY https://github.com/AutonomyLab/ardronelib.git
     GIT_TAG 2f987029c55531e4c0119c3600f9c57f935851ed
     PREFIX ${CATKIN_DEVEL_PREFIX}
     CONFIGURE_COMMAND echo "No configure"
@@ -122,6 +122,14 @@ set(AA_SOURCES
     src/ardrone_sdk.cpp
     src/teleop_twist.cpp
 )
+
+#Python files
+catkin_install_python(PROGRAMS
+   src/yaml_to_camera_info_publisher.py
+   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
+
 
 # Build executable
 add_executable(ardrone_driver ${AA_SOURCES})
