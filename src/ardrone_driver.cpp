@@ -739,7 +739,7 @@ void ARDroneDriver::PublishOdometry(const navdata_unpacked_t &navdata_raw, const
   tf_odom.child_frame_id_ = drone_frame_base;
   tf_odom.setOrigin(t);
   tf_odom.setRotation(q);
-  tf_broad.sendTransform(tf_odom);
+  //tf_broad.sendTransform(tf_odom);
 }
 
 void ControlCHandler(int signal)

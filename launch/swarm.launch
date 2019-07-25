@@ -1,15 +1,35 @@
 <?xml version="1.0"?>
 
 <launch>
+	<param name="useGroundTruth"		value="vicon" />
+	<param name="velx"					value="0" /> 	<!-- Forward velocity -->
+	<param name="refAltitude"			    value="750" />
+	<param name="UseLevy"	    		value="false" />
 	
-	<include file="$(find ardrone_autonomy)/launch/ardrone.launch">
-		  <arg name="drone-ip" 			default="10.0.0.10" />
-		  <arg name="nspace" 			default="quadrotor1" />	
-	</include>
+	<param name="Alpha"	    	value="1" />		<!-- Alignment parameter. Set to zero to igonre -->
+	<param name="Gamma"			value="0" />	
+	
+	<param name="Kx"					value="0.25" />
+	<param name="Ky"					value="1" />
+	
+	<param name="Kw"					value="0.25" />
+	
+		
+	<param name="radius"				value="5" /> 	<!-- Neighbourhood radius -->
+	<param name="separation_radius"		value="0" /> 	<!-- Separation radius -->
+	<rosparam command="load" 		file="$(find ardrone_autonomy)/config/limits.yaml" />	
+	<rosparam command="load" 		file="$(find ardrone_autonomy)/config/namespaces.yaml" />	
+	
+	<!-- <node pkg="multi_ardrone_sim" 	type="flocking" 			name="flocking" 		output="screen" />	-->
 
 	<include file="$(find ardrone_autonomy)/launch/ardrone.launch">
-		  <arg name="drone-ip" 			default="10.0.0.20" />
-		  <arg name="nspace" 			default="quadrotor2" />	
-	</include>
+		  <arg name="drone-ip" 			value="192.168.10.101" />
+		  <arg name="nspace" 			value="quadrotor0" />	
+	</include> 
+
+    <include file="$(find ardrone_autonomy)/launch/ardrone.launch">
+		  <arg name="drone-ip" 			default="192.168.10.102" />
+		  <arg name="nspace" 			default="quadrotor1" />	
+	</include> 
 
 </launch>

@@ -64,7 +64,7 @@ if __name__ == "__main__":
     camera_info_msg = yaml_to_CameraInfo(filename)
 
     # Initialize publisher node
-    rospy.init_node("camera_info_publisher", anonymous=True)
+    rospy.init_node("camera_info_publisher")
     publisher = rospy.Publisher("camera_info", CameraInfo, queue_size=10)
     rate = rospy.Rate(10)
 

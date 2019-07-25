@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <group ns="quadrotor0">
+	  <node pkg="multi_ardrone_sim" type="ctrl_velocity" 		name="VelCtrl" 	output="screen">	  
+		<remap from="cmd_vel" to="ref_vel" > 
+	  </node>	
+	
+	 <node pkg="multi_ardrone_sim" type="rectVel" 		name="VelLoop" 	output="screen">	  
+		<remap from="cmd_vel" to="test_vel" > 
+	 </node>	
+  </group>
+<!--
+  <group ns="/quadrotor1">
+	  <node pkg="multi_ardrone_sim" type="ctrl_velocity" 		name="VelCtrl" 	output="screen"/>	  
+	  <remap from="cmd_vel" to="ref_vel" > 
+	  </node>	  
+  </group>
+  -->
+</launch>

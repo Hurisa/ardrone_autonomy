@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <group ns="/quadrotor0">
+	  <node pkg="multi_ardrone_sim" type="takeoff" name="TakeOff" 	output="screen"/>	  
+  </group>
+
+
+
+</launch>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <group ns="quadrotor0">
+	  <node pkg="multi_ardrone_sim" type="land" 		name="Land" 	output="screen"/>	  
+  </group>
+
+  <group ns="quadrotor1">
+	  <node pkg="multi_ardrone_sim" type="land" 		name="Land" 	output="screen"/>	  
+  </group>
+
+</launch>
