@@ -2,20 +2,30 @@
 
 <launch>
 
+
   <group ns="quadrotor0">
-	  <node pkg="multi_ardrone_sim" type="ctrl_velocity" 		name="VelCtrl" 	output="screen">	  
-		<remap from="cmd_vel" to="ref_vel" > 
+	  <node pkg="multi_ardrone_sim" type="ctrl_velocity" name="VelRef" 	output="screen">	  
+		<remap from="cmd_vel" to="cmd_vel_ref" /> 
 	  </node>	
 	
-	 <node pkg="multi_ardrone_sim" type="rectVel" 		name="VelLoop" 	output="screen">	  
-		<remap from="cmd_vel" to="test_vel" > 
+	 <node pkg="ardrone_velocity" type="pid_control" 	name="VelCtrl" 	output="screen">	 
+		
 	 </node>	
+	
   </group>
-<!--
+  
+ 
   <group ns="/quadrotor1">
-	  <node pkg="multi_ardrone_sim" type="ctrl_velocity" 		name="VelCtrl" 	output="screen"/>	  
-	  <remap from="cmd_vel" to="ref_vel" > 
-	  </node>	  
+	  <node pkg="multi_ardrone_sim" type="ctrl_velocity" 		name="VelRef" 	output="screen">	  
+	  <remap from="cmd_vel" to="cmd_vel_ref" /> 
+	  </node>	 
+	  
+	 <node pkg="ardrone_velocity" type="pid_control" 	name="VelCtrl" 	output="screen"/>	 
+
   </group>
-  -->
+
+ <!--  <node pkg="rosbag" type="record" name="uav_state" output="screen" args="record -o $(find multi_ardrone_sim)/results/vel_angular  /quadrotor1/ardrone/navdata /quadrotor1/cmd_vel "/> -->
+  
+ <node pkg="multi_ardrone_sim"   type="supervisor_real"  name="supervisor" 	output="screen"/>	 
+
 </launch>

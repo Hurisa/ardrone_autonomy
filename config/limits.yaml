@@ -1,5 +1,9 @@
-xLowerLimit: -1.3
-xUpperLimit: 1.9
-yLowerLimit: -1.4
-yUpperLimit: 1
+xLowerLimit: -1.2
+xUpperLimit: 1.3
+yLowerLimit: -1.6
+yUpperLimit: 1.6
 
+#xLowerLimit: -10
+#xUpperLimit: 13
+#yLowerLimit: -15
+#yUpperLimit: 12

@@ -5,8 +5,6 @@
   <arg name="drone-ip" 			default="10.0.0.10" />
   <arg name="nspace" 			default="quadrotor1" />
   <arg name="vicon_Topic_name"	default="/vicon/$(arg nspace)/$(arg nspace)" />
-  <!-- <arg name="bottom_cam_yaml"  default="file:$(find ardrone_autonomy)/data/camera_info/ardrone_bottom.yaml" />
-  <arg name="front_cam_yaml"  default="file:$(find ardrone_autonomy)/data/camera_info/ardrone_front.yaml" /> -->
   <group ns="$(arg nspace)">
 	<!-- IPv4 address of your drone -->
 	<arg name="ip" value="$(arg drone-ip)" />
@@ -14,15 +12,13 @@
 	<arg name="freq" default="8" />
     <node name="ardrone_driver" pkg="ardrone_autonomy" type="ardrone_driver"
         output="screen" clear_params="true" args="-ip $(arg ip)">
-		<!-- <param name="bottom_camera_info_url" value="$(arg bottom_cam_yaml)" /> 
-		<param name="camera_info_url" value="$(arg front_cam_yaml)"/> -->
         <param name="outdoor" value="0" />
         <param name="max_bitrate" value="4000" />
         <param name="bitrate" value="4000" />
         <param name="navdata_demo" value="0" />
         <param name="flight_without_shell" value="0" />
         <param name="altitude_max" value="4000" />
-        <param name="altitude_min" value="50" />
+        <param name="altitude_min" value="700" />
         <param name="euler_angle_max" value="0.21" />
         <param name="control_vz_max" value="700" />
         <param name="control_yaw" value="1.75" />
@@ -42,29 +38,27 @@
         <rosparam param="cov/imu_av">[1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]</rosparam>
         <rosparam param="cov/imu_or">[1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 100000.0]</rosparam>
     </node>
-    
 
-	<!--	
-	<param name="filename" value="$(find ardrone_autonomy)/data/camera_info/ardrone_front.yaml" />
-	<node pkg="ardrone_autonomy" name="cam_info" type="yaml_to_camera_info_publisher.py" output="screen"> 
-			<remap from="camera_info" to="ardrone/front/camera_info"/>
-	</node> 
-	-->
 	
 	<!-- <include file="$(find aruco_ros)/launch/marker_publisher.launch" >
 		<arg name="camera_info_topic"		value="bottom/camera_info" />
 		<arg name="image_topic"				value="ardrone/bottom/image_raw" />
 	</include> -->
 	
-	<!--
+	
 	<node pkg="multi_ardrone_sim" type="aruco_localization" name="localization" output="screen">
 		<param name="viconTopic" value="$(arg vicon_Topic_name)"/>
 	</node> 
 	
 	<param name="Kz"        			value="0.002" />
-	<node pkg="multi_ardrone_sim" type="altcontrol" 		name="Altitude_Control" 	output="screen"/>
+	<param name="useVicon" 			value="true"/>
+	<node pkg="multi_ardrone_sim"        type="altcontrol" 		name="Altitude_Control" 	output="screen"/>
+		
+
 	<node pkg="multi_ardrone_sim" type="potential_field" 	name="Potential_Field" 	output="screen"/> 
-	-->
+	
+	<node pkg="multi_ardrone_sim" type="levy_controller"   name="Levy_Update" 	output="screen"/> 
+	
   </group>  
 </launch>
 

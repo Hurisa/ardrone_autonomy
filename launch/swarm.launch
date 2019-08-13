@@ -1,27 +1,48 @@
 <?xml version="1.0"?>
 
 <launch>
+	
+	
 	<param name="useGroundTruth"		value="vicon" />
-	<param name="velx"					value="0" /> 	<!-- Forward velocity -->
-	<param name="refAltitude"			    value="750" />
-	<param name="UseLevy"	    		value="false" />
-	
-	<param name="Alpha"	    	value="1" />		<!-- Alignment parameter. Set to zero to igonre -->
-	<param name="Gamma"			value="0" />	
-	
-	<param name="Kx"					value="0.25" />
-	<param name="Ky"					value="1" />
-	
-	<param name="Kw"					value="0.25" />
-	
-		
-	<param name="radius"				value="5" /> 	<!-- Neighbourhood radius -->
-	<param name="separation_radius"		value="0" /> 	<!-- Separation radius -->
-	<rosparam command="load" 		file="$(find ardrone_autonomy)/config/limits.yaml" />	
-	<rosparam command="load" 		file="$(find ardrone_autonomy)/config/namespaces.yaml" />	
-	
-	<!-- <node pkg="multi_ardrone_sim" 	type="flocking" 			name="flocking" 		output="screen" />	-->
+	<param name="velx"					value="0.3" /> 	<!-- Forward velocity -->
+	<param name="refAltitude"			    value="1200" />
 
+	
+	<!-- <param name="Alpha"	    		value="1" />		-->
+
+	
+	<!-- <param name="Kx"				value="0.01" />
+	<param name="Ky"					value="0.2" /> -->	
+	<param name="Kw"					value="1" />
+	
+	<param name="N"	    			value="1" />
+	
+    <arg name="argUseLevy"	    		value="true" />
+	<arg name="argmiu"	    			value="2.8" />
+	<arg name="argRunLength"	    	value="120" /> 	<!-- Run length in secs -->
+	<arg name="argAlpha"	    		value="0" />		<!-- Alignment parameter. Set to zero to igonre-->	
+	
+	<param name="RunLength"	    value="$(arg argRunLength)" /> 	<!-- Run length in secs -->
+	<param name="UseLevy"	    	value="$(arg argUseLevy)" />
+	<param name="miu"	    		value="$(arg argmiu)" />
+	<param name="Alpha"	    	value="$(arg argAlpha)" />     <!-- Alignment parameter. Set to zero to igonre-->
+	
+	<param name="Gamma"				value="5" />	
+	<param name="Beta"				    value="0" />	
+
+		
+	<param name="radius"				value="2" /> 	<!-- Neighbourhood radius -->
+	<param name="separation_radius"		value="1.8" /> 	<!-- Separation radius -->
+	
+	<!-- IMPORTANT -->
+	<param name="run_no"				value="4"	/>	<!-- number of run with the same parameters-->
+	<!--                         -->
+	
+	<rosparam command="load" 			file="$(find ardrone_autonomy)/config/limits.yaml" />	
+	<rosparam command="load" 			file="$(find ardrone_autonomy)/config/namespaces.yaml" />	
+	
+    <node pkg="multi_ardrone_sim" type="reynolds" 	name="reynolds"  output="screen" />
+	
 	<include file="$(find ardrone_autonomy)/launch/ardrone.launch">
 		  <arg name="drone-ip" 			value="192.168.10.101" />
 		  <arg name="nspace" 			value="quadrotor0" />	
@@ -31,5 +52,7 @@
 		  <arg name="drone-ip" 			default="192.168.10.102" />
 		  <arg name="nspace" 			default="quadrotor1" />	
 	</include> 
+
+
 
 </launch>
