@@ -5,7 +5,7 @@
 	
 	<param name="useGroundTruth"		value="vicon" />
 	<param name="velx"					value="0.3" /> 	<!-- Forward velocity -->
-	<param name="refAltitude"			    value="1200" />
+	<param name="refAltitude"			    value="1400" />
 
 	
 	<!-- <param name="Alpha"	    		value="1" />		-->
@@ -18,7 +18,7 @@
 	<param name="N"	    			value="1" />
 	
     <arg name="argUseLevy"	    		value="true" />
-	<arg name="argmiu"	    			value="2.8" />
+	<arg name="argmiu"	    			value="1.4" />
 	<arg name="argRunLength"	    	value="120" /> 	<!-- Run length in secs -->
 	<arg name="argAlpha"	    		value="0" />		<!-- Alignment parameter. Set to zero to igonre-->	
 	
@@ -32,10 +32,10 @@
 
 		
 	<param name="radius"				value="2" /> 	<!-- Neighbourhood radius -->
-	<param name="separation_radius"		value="1.8" /> 	<!-- Separation radius -->
+	<param name="separation_radius"		value="1.7" /> 	<!-- Separation radius -->
 	
 	<!-- IMPORTANT -->
-	<param name="run_no"				value="4"	/>	<!-- number of run with the same parameters-->
+	<param name="run_no"				value="0"	/>	<!-- number of run with the same parameters-->
 	<!--                         -->
 	
 	<rosparam command="load" 			file="$(find ardrone_autonomy)/config/limits.yaml" />	

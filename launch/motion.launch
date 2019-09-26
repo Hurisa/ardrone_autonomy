@@ -14,7 +14,7 @@
 	
   </group>
   
- 
+
   <group ns="/quadrotor1">
 	  <node pkg="multi_ardrone_sim" type="ctrl_velocity" 		name="VelRef" 	output="screen">	  
 	  <remap from="cmd_vel" to="cmd_vel_ref" /> 
